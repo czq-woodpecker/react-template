@@ -30,3 +30,51 @@
       }
       ```
 
+5. 集成webpack
+
+   1. 添加webpack相关依赖
+
+      ```
+      yarn add webpack webpack-cli webpack-dev-server babel-loader --dev
+      ```
+
+   2. 添加webpack配置文件webpack.config.js
+
+      ```
+      const path = require("path");
+      
+      module.exports = {
+        entry: "./src/index.js",
+        mode: "development",
+        module: {
+          rules: [
+            {
+              test: /\.(js|jsx)$/,
+              exclude: /(node_modules|bower_components)/,
+              loader: "babel-loader",
+              options: { presets: ["@babel/env"] }
+            },
+          ]
+        },
+        resolve: { extensions: ["*", ".js", ".jsx"] },
+        output: {
+          path: path.resolve(__dirname, "dist/"),
+          publicPath: "/dist/",
+          filename: "bundle.js"
+        },
+        devServer: {
+          contentBase: path.join(__dirname, "public/"),
+          port: 3000,
+          publicPath: "http://localhost:3000/dist/",
+          hotOnly: true
+        },
+      };
+      ```
+
+   3. 添加文件src/index.js, 并在public/index.html中引入../dist/bundle.js文件
+
+      ```
+      document.body.append("Hello JS")
+      ```
+
+   4. 运行yarn webpack，可以看到生成了dist/bundle.js文件，然后使用浏览器打开public/index.html就可以看到效果
