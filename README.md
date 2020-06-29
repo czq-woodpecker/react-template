@@ -107,4 +107,39 @@
       "start": "webpack-dev-server --mode development"
       ```
 
+7. 集成react
+
+   1. 添加react相关依赖
+
+      ```
+      yarn add react react-dom
+      ```
+
+   2. 替换src/index.js
+
+      ```
+      import React from "react";
+      import ReactDOM from "react-dom";
+      import App from "./App.js";
+      ReactDOM.render(<App />, document.getElementById("root"));
+      ```
+
+   3. 添加src/App.js
+
+      ```
+      import React, { Component} from "react";
       
+      class App extends Component{
+        render(){
+          return(
+            <div>
+            <h1> Hello React! </h1>
+          </div>
+        );
+        }
+      }
+      
+      export default App;
+      ```
+
+   4. 顺便把src/index.html中无用的Hello World标题删掉
