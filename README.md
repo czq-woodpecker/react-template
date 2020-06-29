@@ -143,3 +143,55 @@
       ```
 
    4. 顺便把src/index.html中无用的Hello World标题删掉
+
+8. 解析并使用css，直到现在，我们的项目仍然无法使用css样式。
+
+   1. 添加css-loader让webpack解析css代码，添加style-loader把css-loader解析后的代码挂载到html中
+
+      ```
+      yarn add style-loader css-loader --dev
+      ```
+
+   2. 配置style-loader和css-loader, 将以下配置添加到webpack.config.js中
+
+      ```
+      module.exports = {
+       module: {
+       	rules: [
+            {
+              test: /\.css$/,
+              use: ["style-loader", "css-loader"]
+            }
+       	]
+       }
+      }
+      ```
+
+   3. 创建src/App.css并在App.js中引入App.css
+
+      ```
+      .title{
+          color: red;
+      }
+      ```
+
+   4. 修改src/App.js如下：
+
+      ```
+      import React, { Component} from "react";
+      import "./App.css"
+      
+      class App extends Component{
+        render(){
+          return(
+            <div>
+            <h1 className="title"> Hello React! </h1>
+          </div>
+        );
+        }
+      }
+      
+      export default App;
+      ```
+
+      
