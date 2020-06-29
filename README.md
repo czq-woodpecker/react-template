@@ -44,7 +44,7 @@
       const path = require("path");
       
       module.exports = {
-        entry: "./src/index.js",
+        entry: "./src/index.tsx",
         mode: "development",
         module: {
           rules: [
@@ -71,7 +71,7 @@
       };
       ```
 
-   3. 添加文件src/index.js, 并在public/index.html中引入../dist/bundle.js文件
+   3. 添加文件src/index.tsx, 并在public/index.html中引入../dist/bundle.js文件
 
       ```
       document.body.append("Hello JS")
@@ -115,16 +115,16 @@
       yarn add react react-dom
       ```
 
-   2. 替换src/index.js
+   2. 替换src/index.tsx
 
       ```
       import React from "react";
       import ReactDOM from "react-dom";
-      import App from "./App.js";
+      import App from "./App.tsx";
       ReactDOM.render(<App />, document.getElementById("root"));
       ```
 
-   3. 添加src/App.js
+   3. 添加src/App.tsx
 
       ```
       import React, { Component} from "react";
@@ -194,4 +194,87 @@
       export default App;
       ```
 
+9. 集成Typescript
+
+   1. 添加相关依赖, 其中awesome-typescript-loader是为了让webpack转译ts代码文件，因为webpack默认只会处理js代码
+
+      ```
+      yarn add typescript awesome-typescript-loader --dev
+      ```
+
+   2. 添加Typescript配置文件tsconfig.json
+
+      ```
+      {
+          "compilerOptions": {
+              "outDir": "./dist/",
+              "sourceMap": true,
+              "noImplicitAny": true,
+              "module": "commonjs",
+              "target": "es5",
+              "jsx": "react"
+          },
+          "include": [
+              "./src/**/*"
+          ]
+      }
+      ```
       
+   3. 修改webpack.config.js如下
+   
+      ```
+      const path = require("path");
+      
+      module.exports = {
+      	//change===
+        entry: "./src/index.tsx",
+        mode: "development",
+        module: {
+          rules: [
+            {
+              test: /\.(js|jsx)$/,
+              exclude: /(node_modules|bower_components)/,
+              loader: "babel-loader",
+              options: { presets: ["@babel/env"] }
+            },
+            {
+              test: /\.css$/,
+              use: ["style-loader", "css-loader"]
+            },
+            //+++++
+            {
+              test: /\.tsx?$/,
+              loader: "awesome-typescript-loader"
+            },
+          ]
+        },
+        //change===
+        resolve: { extensions: [".js", ".ts", ".tsx", ".json", ".css"] },
+        output: {
+          path: path.resolve(__dirname, "dist/"),
+          publicPath: "/dist/",
+          filename: "bundle.js"
+        },
+        devServer: {
+          contentBase: path.join(__dirname, "public/"),
+          port: 3000,
+          publicPath: "http://localhost:3000/dist/",
+          hotOnly: true,
+          open: true
+        },
+      };
+      
+      ```
+   
+   4. 将src中的js文件改为tsx或ts文件
+   
+   5. 安装react相关包的声明文件依赖
+   
+      ```
+      yarn add @types/react @types/react-dom --dev
+      ```
+   
+      
+
+
+

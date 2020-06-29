@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   mode: "development",
   module: {
     rules: [
@@ -14,10 +14,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
-      }
+      },
+      {
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader"
+      },
     ]
   },
-  resolve: { extensions: ["*", ".js", ".jsx"] },
+  resolve: { extensions: [".js", ".ts", ".tsx", ".json", ".css"] },
   output: {
     path: path.resolve(__dirname, "dist/"),
     publicPath: "/dist/",
