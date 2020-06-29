@@ -1,0 +1,14 @@
+{
+  "name": "react-template",
+  "version": "1.0.0",
+  "description": "react template project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "npm、webpack、react、typescript、babel、eslint"
+  ],
+  "author": "czq-woodpecker",
+  "license": "ISC"
+}
