@@ -12,4 +12,4 @@
    git init
    ```
 
-   
+3. 编写一个静态页面pulic/index.html用于展示
