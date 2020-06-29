@@ -78,3 +78,33 @@
       ```
 
    4. 运行yarn webpack，可以看到生成了dist/bundle.js文件，然后使用浏览器打开public/index.html就可以看到效果
+
+6. 使用dev-server
+
+   1. 添加依赖
+
+      ```
+      yarn add webpack-dev-server --dev
+      ```
+
+   2. 在webpack.config.js中添加dev-server配置
+
+      ```
+      module.exports = {
+        devServer: {
+          contentBase: path.join(__dirname, "public/"),
+          port: 3000,
+          publicPath: "http://localhost:3000/dist/",
+          hotOnly: true,
+          open: true
+        },
+      }
+      ```
+
+   3. 添加下面的npm script到package.json, 并执行yarn start
+
+      ```
+      "start": "webpack-dev-server --mode development"
+      ```
+
+      

@@ -4,7 +4,8 @@
   "description": "react template project",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "webpack-dev-server --mode development"
   },
   "keywords": [
     "npm、webpack、react、typescript、babel、eslint"
